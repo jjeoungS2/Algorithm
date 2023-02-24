@@ -25,8 +25,8 @@ public class Main {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			friends[a].list.add(new Friend(b));
-			friends[b].list.add(new Friend(a));
+			friends[a].list.add(b);
+			friends[b].list.add(a);
 		}
 
 		// 모든사람 각각에 대해서 연속적으로 연결된 친구관계가 5명인 경우를 찾는다.
@@ -51,15 +51,15 @@ public class Main {
 			return;
 		}
 
-		friends[num].list.forEach( (f) -> {
-			if ((visit & (1 << f.num)) == 0)
-				dfs(f.num, cnt + 1, visit | 1 << f.num);
+		friends[num].list.forEach( (i) -> {
+			if ((visit & (1 << i)) == 0)
+				dfs(i, cnt + 1, visit | 1 << i);
 		});
 	}
 
 	static class Friend {
 		int num;
-		List<Friend> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
 
 		Friend(int num) {
 			this.num = num;
