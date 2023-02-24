@@ -6,7 +6,8 @@ import java.util.StringTokenizer;
 public class Main {
 	static int N;
 	static int[] num;
-	static ArrayList<Character> list = new ArrayList<>();
+	// static ArrayList<Character> list = new ArrayList<>();
+	static int[] list = new int[4];
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,65 +20,39 @@ public class Main {
 		}
 
 		// + - x /
-
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < 4; i++) {
-			int n = Integer.parseInt(st.nextToken());
-			for (int j = 0; j < n; j++) {
-				switch (i) {
-				case 0:
-					list.add('+');
-					break;
-				case 1:
-					list.add('-');
-					break;
-				case 2:
-					list.add('*');
-					break;
-				case 3:
-					list.add('/');
-					break;
-				}
-			}
+			list[i] = Integer.parseInt(st.nextToken());;
 		}
-		visit = new boolean[N - 1];
-		tgt = new char[N - 1];
-		check(0, 0);
+
+		check(num[0], 1); // 첫번째 숫자는 num으로 보내니까 idx는 1부터 시작
 		System.out.println(MAX);
 		System.out.println(MIN);
 	}
 
-	static boolean visit[];
 	static int MAX = Integer.MIN_VALUE;
 	static int MIN = Integer.MAX_VALUE;
-	static char[] tgt;
 
-	static void check(int tgtIdx, int srcIdx) {
-		if (tgtIdx == N - 1) {
-			int sum = num[0];
-			for (int i = 1; i < N; i++) {
-				switch(tgt[i-1]) {
-				case'+':
-					sum = sum + num[i]; break;
-				case'-':
-					sum = sum - num[i]; break;
-				case'*':
-					sum = sum * num[i]; break;
-				case'/':
-					sum = sum / num[i]; break;
-				}
-			}
-			MAX = Math.max(MAX, sum);
-			MIN = Math.min(MIN, sum);
+	static void check(int result, int idx) {
+		if(idx == N) {
+			MAX = Math.max(MAX, result);
+			MIN = Math.min(MIN, result);
 			return;
 		}
-		for (int i = 0; i < list.size(); i++) {
-			if (visit[i])
-				continue;
-			visit[i] = true;
-			tgt[tgtIdx] = list.get(i);
-			check(tgtIdx + 1, srcIdx + 1);
-			visit[i] = false;
+		for (int i = 0; i < 4; i++) {
+			if (list[i] > 0) {
+				list[i]--;
+				if (i == 0)
+					check(result + num[idx], idx + 1);
+				else if (i == 1) {
+					check(result - num[idx], idx + 1);
+				} else if (i == 2) {
+					check(result * num[idx], idx + 1);
+				} else if (i == 3) {
+					check(result / num[idx], idx + 1);
+				}
+				list[i]++;
+			}
 		}
 	}
 
