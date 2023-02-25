@@ -1,50 +1,38 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Main {
-	static int N;
-	static int[] arr;
-	static int result;
+	static int N, col[], answer;
 
 	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-		if (N == 1) {
-			System.out.println(1);
-		} else {
-			for (int i = 0; i < N; i++) {
-				arr[0] = i;
-				NQueen(0);
-			}
-			System.out.println(result);
-		}
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		col = new int[N + 1];
+		
+		setQueen(1);
+		System.out.println(answer);
 	}
 
-	// index 번호를 행으로 사용
-	static void NQueen(int x) {
-		if (x == N - 1) {
-			result++;
+	private static void setQueen(int rowNo) { // rowNo : 놓으려고 하는 퀸의 행 번호
+		if (!isAuailable(rowNo - 1)) return;
+
+		if (rowNo > N) {
+			answer += 1;
 			return;
 		}
-		for (int i = 0; i < N; i++) {
-			arr[x + 1] = i; // 열
-			if (check(x + 1)) {
-				NQueen(x + 1);
-			}
+
+		for (int c = 1; c <= N; c++) {
+			col[rowNo] = c;
+			setQueen(rowNo + 1);
 		}
+
 	}
 
-	private static boolean check(int x) {
-		for (int i = 0; i < x; i++) {
-			// 세로체크
-			if (arr[i] == arr[x])
-				return false;
-			// 대각선
-			if (Math.abs(i - x) == Math.abs(arr[i] - arr[x]))
+	private static boolean isAuailable(int rowNo) {
+		for (int k = 1; k < rowNo; k++) { // k : 비교대산 queen의 행
+			if (col[k] == col[rowNo] || // 같은 열에 있어용
+					Math.abs(col[k] - col[rowNo]) == rowNo - k) // 열차이, 행차이가 같으면 같은 대각선상
 				return false;
 		}
-
 		return true;
 	}
 
