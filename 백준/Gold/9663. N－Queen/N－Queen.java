@@ -3,55 +3,45 @@ import java.io.InputStreamReader;
 
 public class Main {
 	static int N;
-	static int[][] arr;
+	static int[] arr;
+	static int result;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		arr = new int[N][2];
-
-		for (int i = 0; i < N; i++) {
-			arr[0][1] = i;
-			cnt = 1;
-			NQueen(0, i);
-		}
+		arr = new int[N];
 		if (N == 1) {
 			System.out.println(1);
 		} else {
+			for (int i = 0; i < N; i++) {
+				arr[0] = i;
+				NQueen(0);
+			}
 			System.out.println(result);
 		}
 	}
 
-	static int cnt = 1;
-	static int result = 0;
-
-	static void NQueen(int x, int y) {
-		if (x == N - 1)
+	// index 번호를 행으로 사용
+	static void NQueen(int x) {
+		if (x == N - 1) {
+			result++;
 			return;
+		}
 		for (int i = 0; i < N; i++) {
-			arr[x + 1][0] = x + 1;
-			arr[x + 1][1] = i;
-			if (check(x + 1, i)) {
-				cnt++;
-				NQueen(x + 1, i);
-				if (cnt == N) {
-					cnt--;
-					result += 1;
-					return;
-				}
-				cnt--;
+			arr[x + 1] = i; // 열
+			if (check(x + 1)) {
+				NQueen(x + 1);
 			}
-
 		}
 	}
 
-	private static boolean check(int x, int y) {
+	private static boolean check(int x) {
 		for (int i = 0; i < x; i++) {
 			// 세로체크
-			if (arr[i][1] == arr[x][1])
+			if (arr[i] == arr[x])
 				return false;
-			// 가로체크
-			if (Math.abs(arr[i][0] - arr[x][0]) == Math.abs(arr[i][1] - arr[x][1]))
+			// 대각선
+			if (Math.abs(i - x) == Math.abs(arr[i] - arr[x]))
 				return false;
 		}
 
