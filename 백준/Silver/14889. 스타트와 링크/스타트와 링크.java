@@ -1,77 +1,66 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-
 	static int N;
-	static int min = Integer.MAX_VALUE;
-	static int[][] arr;
-	static boolean[] visit;
-	
-	public static void main(String[] args) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		arr = new int[N][N];
-		visit = new boolean[N];
-		
-		for(int i = 0 ; i < N ; i++) {
-		StringTokenizer str = new StringTokenizer(br.readLine());
-		for(int j = 0 ; str.hasMoreTokens();j++) {
-			arr[i][j]= Integer.parseInt(str.nextToken());
-		}
-		}
-		
-		dfs(0,0);
-		
-		System.out.println(min);
-		
+	static int[][] list;
+	static boolean[] select;
+	static int result = Integer.MAX_VALUE;
 
-}
-	public static void dfs(int depth, int a) {
-		
-		if(depth == N/2) {
-			diff();
-			return;
-		}
-		
-		for(int i = a ; i < N ; i++) {
-			visit[i]=true;
-			dfs(depth+1, i+1);
-			visit[i]=false;
-		}	
-	}
-	
-	public static void diff() {
-		int start = 0;
-		int link = 0;
-		for(int i = 0 ; i < N-1 ; i++) {
-			for(int j = i+1 ; j < N ; j++) {
-				if(visit[i]==true && visit[j]==true) {
-					start += arr[i][j];
-					start += arr[j][i];
-				}
-				else if(visit[i]==false && visit[j]==false) {
-					link += arr[i][j];
-					link += arr[j][i];
-				}
-				
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		N = Integer.parseInt(br.readLine());
+		list = new int[N][N];
+		select = new boolean[N];
+
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < N; j++) {
+				list[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
-		
-		int val = Math.abs(start - link);
-		
-		if(val == 0) {
-			System.out.println(val);
+
+		comb(0, 0);
+		System.out.println(result);
+	}
+
+	static void comb(int tgtIdx, int srcIdx) {
+		if (tgtIdx == N / 2) {
+			Check();
+			return;
+		}
+
+		for (int i = srcIdx; i < N; i++) {
+			if(select[i]) continue;
+			select[i] = true;
+			comb(tgtIdx + 1, i + 1);
+			select[i] = false;
+		}
+	}
+
+	static void Check() {
+		int S = 0;
+		int L = 0;
+
+		for (int i = 0; i < N - 1; i++) {
+			for (int j = i + 1; j < N; j++) {
+				if (select[i] == true && select[j] == true) { // 방문 true면 스타트 팀
+					S += list[i][j];
+					S += list[j][i];
+				}
+				else if (select[i] == false && select[j] == false) { // false면 링크 팀
+					L += list[i][j];
+					L += list[j][i];
+				}
+			}
+		}
+		int min = Math.abs(S-L);
+		if(min == 0) {
+			System.out.println(0);
 			System.exit(0);
 		}
-		
-		min=Math.min(min,val);
+		result = Math.min(min, result);
 	}
-	
-
 }
