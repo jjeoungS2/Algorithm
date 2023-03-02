@@ -53,9 +53,16 @@ public class Main {
 
 		dijkstra();
 
-		for (int i = 1; i <= V; i++) {
-			System.out.println(cost[i] == INF ? "INF" : cost[i]);
+//		for (int i = 1; i <= V; i++) {
+//			System.out.println(cost[i] == INF ? "INF" : cost[i]);
+//		}
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i = 1;i<=V;i++) {
+			if(cost[i]==INF) sb.append("INF").append("\n");
+			else sb.append(cost[i]).append("\n");
 		}
+		System.out.println(sb);
 	}
 
 	static void dijkstra() {
