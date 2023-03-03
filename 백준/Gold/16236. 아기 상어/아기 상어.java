@@ -90,7 +90,9 @@ public class Main {
 					}
 				}
 			}
-
+			// 가지치기
+			if(node.d+1 >= minDis) continue;
+			
 			for (int d = 0; d < 4; d++) {
 				int ny = node.y + dy[d];
 				int nx = node.x + dx[d];
