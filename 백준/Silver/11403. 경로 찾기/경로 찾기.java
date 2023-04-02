@@ -23,9 +23,10 @@ public class Main {
 		// map[1][2] == 1 이고 map[2][3] == 1 이면 결국
 		// 1에서 3까지 갈 수 있다는 말이니까 map[1][3] = 1
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				for (int z = 0; z < N; z++) {
+		
+		for (int i = 0; i < N; i++) {	// 중간 
+			for (int j = 0; j < N; j++) {	// 시작 
+				for (int z = 0; z < N; z++) {	// 끝 
 					if(map[j][i] == 1 && map[i][z] == 1) {
 						map[j][z] = 1;
 					}
