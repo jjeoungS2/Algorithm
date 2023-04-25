@@ -1,7 +1,7 @@
 import java.util.*;
 class Solution {
     public int[] solution(int n, String[] words) {
-        int[] res = new int[2];
+        int[] res = {0,0};
         Map<String,Integer> map = new HashMap<>();
 		boolean flag = true;
 		int num = 0; // 첫번째 사람부터
@@ -48,10 +48,8 @@ class Solution {
 				break;
 			}
 		}
-		if(flag == true) {
-			res[0] = 0;
-			res[1] = 0;
-		} else {
+        
+		if(flag == false) {
 			num++;
 			if(num > n) num = 1;
 			res[0] = num;
