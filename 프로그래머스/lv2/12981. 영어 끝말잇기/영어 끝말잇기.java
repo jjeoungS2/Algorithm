@@ -13,7 +13,7 @@ class Solution {
 		char first;
 		
 		
-		while (true) {
+		for(int i=0;i<words.length;i++){
 			if(idx == 0) {
 				s = words[0].toCharArray();
 				last = s[s.length - 1];
@@ -23,9 +23,6 @@ class Solution {
 				continue;
 			}
 			
-			// 인덱스 길이랑 배열 길이랑 같아지면 스탑 
-			if(idx == words.length) break;
-			
 			s = words[idx].toCharArray();
 			
 			// 나왔던 단어라면 스톱 
@@ -33,7 +30,7 @@ class Solution {
 				flag = false;
 				break;
 			}
-			// 단어 map에 넣
+			// 처음나온 단어 map에 넣기
 			map.put(words[idx], num);
 			
 			first = s[0];
