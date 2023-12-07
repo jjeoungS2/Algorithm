@@ -1,37 +1,12 @@
 import java.io.BufferedReader;
-import java.io.*;
-import java.util.*;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-// 섬의 개수 - 그래프
-// 1이 땅
 public class Main {
 	static int w,h;
 	static int[][] map;
 	static boolean[][] visited;
 	static int res;
-	static int[] dx = {-1,1,0,0,-1,-1,1,1};
-	static int[] dy = {0,0,1,-1,-1,1,-1,1};
-	public static void bfs(int a, int b) {
-		Queue<int[]> q = new ArrayDeque<>();
-		q.add(new int[] {a,b});
-		visited[a][b] = true;
-		
-		while(!q.isEmpty()) {
-			int[] idx = q.poll();
-			for(int i = 0; i < 8; i++) {
-				int x = idx[0] + dx[i];
-				int y = idx[1] + dy[i];
-				if(x < 0 || y < 0 || x >= h || y >= w || visited[x][y] || map[x][y]!=1) continue;
-				else {
-					q.add(new int[] {x,y});
-					visited[x][y] = true;
-				}
-			}
-		}
-		res++;
-		return;
-	}
-	
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -55,13 +30,26 @@ public class Main {
 			for(int i = 0; i < h;i++) {
 				for(int j = 0; j < w; j++) {
 					if(map[i][j] == 1 && !visited[i][j]) {
-						bfs(i,j);
+						dfs(i,j);
+						res++;
 					}
 				}
 			}
 			System.out.println(res);
 		}
 	}
-
+	
+	static int[] dx = {-1,1,0,0,-1,-1,1,1};
+	static int[] dy = {0,0,1,-1,-1,1,-1,1};
+	public static void dfs(int a, int b) {
+		visited[a][b] = true;
+		
+		for(int i = 0; i < 8; i++) {
+			int x = a + dx[i];
+			int y = b + dy[i];
+			if(x < 0 || y < 0 || x >= h || y >= w || map[x][y]!=1 || visited[x][y]) continue;
+			else dfs(x,y);
+		}
+	}
 
 }
