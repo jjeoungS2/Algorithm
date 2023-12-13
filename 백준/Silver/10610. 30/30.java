@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.StringTokenizer;
 
 // 30
 public class Main {
@@ -27,9 +26,9 @@ public class Main {
 		if(!success || sum % 3 != 0) {
 			System.out.println(-1);
 		} else {
-			Arrays.sort(num,Comparator.reverseOrder());
-			
-			for(int i = 0; i < n; i++) {
+			Arrays.sort(num);
+		
+			for(int i = n-1; i >= 0; i--) {
 				System.out.print(num[i]);
 			}
 		}
