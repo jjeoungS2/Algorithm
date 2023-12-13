@@ -1,7 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Comparator;
 
 // 30
 public class Main {
@@ -11,14 +9,16 @@ public class Main {
 		String s = br.readLine();
 		
 		int n = s.length();
-		Integer[] num = new Integer[n];
+		int[] num = new int[10];
 		boolean success = false;
-		int res = 0;
 		int sum = 0;
 		for(int i = 0; i < n; i++) {
-			num[i] = s.charAt(i)-'0';
-			sum += num[i];
-			if(num[i] == 0) {
+			
+			int cnt = s.charAt(i)-'0';
+			num[cnt]++;
+			sum += cnt;
+			
+			if(cnt == 0) {
 				success = true;
 			}
 		}
@@ -26,10 +26,11 @@ public class Main {
 		if(!success || sum % 3 != 0) {
 			System.out.println(-1);
 		} else {
-			Arrays.sort(num);
-		
-			for(int i = n-1; i >= 0; i--) {
-				System.out.print(num[i]);
+			for(int i = 9; i >= 0; i--) {
+				int t = num[i];
+				for(int j = 0; j < t ; j++) {
+					System.out.print(i);
+				}
 			}
 		}
 		
