@@ -10,28 +10,23 @@ public class Main {
 		
 		int n = s.length();
 		int[] num = new int[10];
-		boolean success = false;
 		int sum = 0;
 		for(int i = 0; i < n; i++) {
-			
-			int cnt = s.charAt(i)-'0';
-			num[cnt]++;
-			sum += cnt;
-			
-			if(cnt == 0) {
-				success = true;
-			}
+			num[s.charAt(i)-'0']++;
+			sum += s.charAt(i)-'0';
 		}
-		
-		if(!success || sum % 3 != 0) {
+	
+		StringBuilder sb = new StringBuilder();
+		if(num[0]==0 || sum % 3 != 0) {
 			System.out.println(-1);
 		} else {
 			for(int i = 9; i >= 0; i--) {
-				int t = num[i];
-				for(int j = 0; j < t ; j++) {
-					System.out.print(i);
+				for(int j = 0; j < num[i] ; j++) {
+					sb.append(i);
+//					System.out.print(i);
 				}
 			}
+			System.out.println(sb);
 		}
 		
 	}
