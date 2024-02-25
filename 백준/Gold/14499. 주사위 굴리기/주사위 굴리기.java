@@ -11,6 +11,7 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
@@ -68,10 +69,10 @@ public class Main {
 					dice[1] = map[x][y];
 					map[x][y] = 0;
 				}
-				
-				System.out.println(dice[0]);
+				sb.append(dice[0]).append("\n");
 			}
 		}
+		System.out.println(sb);
 	}
 	
 	static int[] dx = {0,0,-1,1};
@@ -105,5 +106,4 @@ public class Main {
 			return true;
 		}
 	}
-
 }
