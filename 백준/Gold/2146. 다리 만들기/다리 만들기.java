@@ -36,14 +36,7 @@ public class Main {
 				}
 			}
 		}
-		
-//		for(int i = 0; i < N; i++) {
-//			for(int j =0; j < N; j++) {
-//				System.out.print(map2[i][j]+" ");
-//			}
-//			System.out.println();
-//		}
-//		
+
 		visit = new boolean[N][N];
 		
 		for(int i = 0; i < N ; i++) {
@@ -55,8 +48,6 @@ public class Main {
 			}
 		}
 		System.out.println(res);
-		
-
 	}
 
 	static int[] dx = {-1,1,0,0};
