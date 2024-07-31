@@ -49,14 +49,14 @@ public class Main {
 			
 			bfs();
 			if(res!=0) {
-//				sb.append("Escaped in "+res+" minute(s).\n");
-				System.out.println("Escaped in "+res+" minute(s).");
+				sb.append("Escaped in "+res+" minute(s).").append("\n");
+//				System.out.println("Escaped in "+res+" minute(s).");
 			} else {
-//				sb.append("Trapped!");
-				System.out.println("Trapped!");
+				sb.append("Trapped!").append("\n");
+//				System.out.println("Trapped!");
 			}
 		}
-//		System.out.println(sb);
+		System.out.println(sb);
 	}
 	
 	public static void bfs() {
