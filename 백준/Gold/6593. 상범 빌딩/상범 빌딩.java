@@ -15,6 +15,7 @@ public class Main {
 		StringTokenizer st;
 		
 		String s;
+		StringBuilder sb = new StringBuilder();
 		while(true) {
 			st = new StringTokenizer(br.readLine());
 			L = Integer.parseInt(st.nextToken());
@@ -48,11 +49,14 @@ public class Main {
 			
 			bfs();
 			if(res!=0) {
+//				sb.append("Escaped in "+res+" minute(s).\n");
 				System.out.println("Escaped in "+res+" minute(s).");
 			} else {
+//				sb.append("Trapped!");
 				System.out.println("Trapped!");
 			}
 		}
+//		System.out.println(sb);
 	}
 	
 	public static void bfs() {
